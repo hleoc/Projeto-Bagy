@@ -1,0 +1,30 @@
+{
+  "name": "BAGY",
+  "version": "1.0.0",
+  "description": "Aqui serão encontrados os detalhes de como o projeto foi estruturado. #vqv 🚀",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon -e js, gql",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hleoc/Projeto-Bagy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hleoc/Projeto-Bagy/issues"
+  },
+  "homepage": "https://github.com/hleoc/Projeto-Bagy#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  },
+  "dependencies": {
+    "@graphql-tools/load-files": "^6.5.1",
+    "@graphql-tools/merge": "^8.1.2",
+    "apollo-server": "^3.3.0",
+    "graphql": "^15.6.1"
+  }
+}
