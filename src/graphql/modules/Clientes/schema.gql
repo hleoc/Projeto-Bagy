@@ -1,0 +1,41 @@
+type Cliente {
+  id: Int
+  nome: String
+  email: String
+  cpf: String
+  dataNasc: String
+  endereco: Endereco
+}
+
+type Endereco {
+  rua: String
+  bairro: String
+  cidade: String
+  estado: String
+  pais: String
+  cep: String
+  numero: Int
+}
+
+input ClienteInput {
+  nome: String
+  email: String
+  cpf: String
+  dataNasc: String
+}
+
+input FiltroInput {
+  id: Int
+  email: String
+}
+
+type Query {
+  cliente(id: Int): Cliente
+  clientes: [Cliente]
+}
+
+type Mutation {
+  criarCliente(data: ClienteInput): Cliente!
+  atualizarCliente(id: Int!, data: ClienteInput): Cliente!
+  deletarCliente(filtro: FiltroInput!): Boolean
+}
