@@ -22,7 +22,6 @@ input ClienteInput {
   email: String
   cpf: String
   dataNasc: String
-  endereco: String
 }
 
 input FiltroInput {
