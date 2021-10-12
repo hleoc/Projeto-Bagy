@@ -1,0 +1,37 @@
+enum TipoPedido {
+  PREPARANDO
+  PARTIUENTREGA
+  ENTREGUE
+}
+
+input PedidoInput {
+  produtos: String
+  dataPedido: String
+  parcelas: Int
+  comprador: String
+  status: TipoPedido
+}
+
+type Pedido {
+  id: Int
+  produtos: String
+  dataPedido: String
+  parcelas: Int
+  comprador: String
+  status: TipoPedido
+}
+
+input FiltroInput {
+  id: Int
+}
+
+type Query {
+  pedido(id: Int): Pedido
+  pedidos: [Pedido]
+}
+
+type Mutation {
+  criarPedido(data: PedidoInput): Pedido!
+  atualizarPedido(id: Int!, data: PedidoInput): Pedido!
+  deletarPedido(filtro: FiltroInput!): Boolean
+}
