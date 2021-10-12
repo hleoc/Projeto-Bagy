@@ -21,9 +21,9 @@ module.exports = {
   },
   Mutation: {
     criarProduto(_obj, { data }) {
-      const { email } = data;
+      const { nome } = data;
 
-      const produtoExistente = db.produtos.some((u) => u.email === email);
+      const produtoExistente = db.produtos.some((u) => u.nome === nome);
 
       if (produtoExistente) {
         throw new Error(`Produto Existente: ${data.nome}`);

@@ -54,4 +54,30 @@ module.exports = {
       quantidadeEstoque: 10,
     },
   ],
+  pedidos: [
+    {
+      id: 1,
+      produtos: "Notebook",
+      dataPedido: new Date(),
+      parcelas: 3,
+      comprador: "Hérica",
+      status: "PREPARANDO"
+    },
+    {
+      id: 2,
+      produtos: "Notebook",
+      dataPedido: new Date(),
+      parcelas: 5,
+      comprador: "Hérica",
+      status: "PARTIUENTREGA"
+    },
+    {
+      id: 3,
+      produtos: "Notebook",
+      dataPedido: new Date(),
+      parcelas: 4,
+      comprador: "Hérica",
+      status: "ENTREGUE"
+    }
+  ]
 };
