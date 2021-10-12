@@ -9,7 +9,7 @@ function geradorDeId(lista) {
     novoId = ultimo.id;
   }
 
-  return novoId++;
+  return ++novoId;
 }
 
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
     clientes: () => db.clientes,
   },
   Mutation: {
-    criarCliente(_obj, { data }) {
+    criarCliente(_obj, { data, rua, bairro, cidade, estado, pais, cep, numero }) {
       const { email } = data;
 
       const clienteExistente = db.clientes.some((u) => u.email === email);
@@ -30,20 +30,22 @@ module.exports = {
       }
 
       const novoCliente = {
-        ...data,
+        ...data, 
+        endereco: {rua, bairro, cidade, estado, pais, cep, numero},
         id: geradorDeId(db.clientes),
       };
       db.clientes.push(novoCliente);
 
       return novoCliente;
     },
-    atualizarCliente(_obj, { id, data }) {
+    atualizarCliente(_obj, { id, data, rua, bairro, cidade, estado, pais, cep, numero }) {
       const cliente = db.clientes.find((u) => u.id === id);
       const indice = db.clientes.findIndex((u) => u.id === id);
 
       const novoCliente = {
         ...cliente,
         ...data,
+        endereco: {rua, bairro, cidade, estado, pais, cep, numero},
       };
       db.clientes.splice(indice, 1, novoCliente);
       return novoCliente;

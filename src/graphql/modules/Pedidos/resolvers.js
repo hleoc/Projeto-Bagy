@@ -9,7 +9,7 @@ function geradorDeId(lista) {
     novoId = ultimo.id;
   }
 
-  return novoId++;
+  return ++novoId;
 }
 
 module.exports = {
