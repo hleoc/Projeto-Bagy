@@ -35,7 +35,26 @@ type Query {
 }
 
 type Mutation {
-  criarCliente(data: ClienteInput): Cliente!
-  atualizarCliente(id: Int!, data: ClienteInput): Cliente!
+  criarCliente(
+    data: ClienteInput
+    rua: String
+    bairro: String
+    cidade: String
+    estado: String
+    pais: String
+    cep: String
+    numero: Int
+  ): Cliente!
+  atualizarCliente(
+    id: Int!
+    data: ClienteInput
+    rua: String
+    bairro: String
+    cidade: String
+    estado: String
+    pais: String
+    cep: String
+    numero: Int
+  ): Cliente!
   deletarCliente(filtro: FiltroInput!): Boolean
 }
