@@ -21,10 +21,28 @@ module.exports = {
   },
   Mutation: {
     criarPedido(_obj, { data }) {
+      const { produto } = data;
+      const { comprador } = data;
+
+      const produtoExistente = db.produtos.find((u) => u.nome === produto);
+      if (
+        !produtoExistente ||
+        produtoExistente.quantidadeEstoque === 0 ||
+        produtoExistente.quantidadeEstoque === undefined
+      ) {
+        throw new Error(`Produto esgotado ou não existe no estoque: ${data.produto}`);
+      }
+
+      const clienteExistente = db.clientes.some((u) => u.nome === comprador);
+      if (!clienteExistente) {
+        throw new Error(`Cliente Inexistente: ${data.nome}`);
+      }
+
       const novoPedido = {
         ...data,
         id: geradorDeId(db.pedidos),
       };
+
       db.pedidos.push(novoPedido);
 
       return novoPedido;

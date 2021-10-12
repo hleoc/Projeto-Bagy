@@ -5,7 +5,7 @@ enum TipoPedido {
 }
 
 input PedidoInput {
-  produtos: String
+  produto: String
   dataPedido: String
   parcelas: Int
   comprador: String
@@ -14,7 +14,7 @@ input PedidoInput {
 
 type Pedido {
   id: Int
-  produtos: String
+  produto: String
   dataPedido: String
   parcelas: Int
   comprador: String
