@@ -33,4 +33,25 @@ module.exports = {
       },
     },
   ],
+  produtos: [
+    {
+      id: 1,
+      nome: "Notebook",
+      urlImagem: "uploads/1",
+      descricao: "Notebook HP 256 G8 Intel Core i3 8GB 256GB SSD - 15,6” LCD Windows 10",
+      peso: "2kg",
+      preco: 3014.1,
+      quantidadeEstoque: 5,
+    },
+    {
+      id: 2,
+      nome: "Placa de vídeo",
+      urlImagem: "uploads/2",
+      descricao:
+        "Placa de vídeo 1050TI DDR5 128BIT Versão para jogos de computador desktop no exterior",
+      peso: "1kg",
+      preco: 623.45,
+      quantidadeEstoque: 10,
+    },
+  ],
 };
