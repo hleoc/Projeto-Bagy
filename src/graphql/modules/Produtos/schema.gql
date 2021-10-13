@@ -4,7 +4,7 @@ type Produto {
   urlImagem: String
   descricao: String
   peso: String
-  preco: Float
+  preco: String
   quantidadeEstoque: Int
 }
 
@@ -13,7 +13,7 @@ input ProdutoInput {
   urlImagem: String
   descricao: String
   peso: String
-  preco: Float
+  preco: String
   quantidadeEstoque: Int
 }
 
@@ -27,7 +27,22 @@ type Query {
 }
 
 type Mutation {
-  criarProduto(data: ProdutoInput): Produto!
-  atualizarProduto(id: Int!, data: ProdutoInput): Produto!
-  deletarProduto(filtro: FiltroInput!): Boolean
+  criarProduto(
+    nome: String
+    urlImagem: String
+    descricao: String
+    peso: String
+    preco: String
+    quantidadeEstoque: Int
+  ): Produto
+  atualizarProduto(
+    id: Int!
+    nome: String
+    urlImagem: String
+    descricao: String
+    peso: String
+    preco: String
+    quantidadeEstoque: Int
+  ): Produto
+  deletarProduto(filtro: FiltroInput): Boolean
 }

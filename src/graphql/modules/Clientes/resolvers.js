@@ -1,67 +1,33 @@
 const db = require("../../../db");
 
-function geradorDeId(lista) {
-  let novoId;
-  let ultimo = lista[lista.length - 1];
-  if (!ultimo) {
-    novoId = 0;
-  } else {
-    novoId = ultimo.id;
-  }
-
-  return ++novoId;
-}
-
 module.exports = {
   Query: {
     cliente(_obj, args) {
-      return db.clientes.find((db) => db.id === args.id);
+      return db("clientes").find((db) => db.id === args.id);
     },
-    clientes: () => db.clientes,
+    clientes: async () => await db("clientes"),
   },
   Mutation: {
-    criarCliente(_obj, { data, rua, bairro, cidade, estado, pais, cep, numero }) {
-      const { email } = data;
-
-      const clienteExistente = db.clientes.some((u) => u.email === email);
-
-      if (clienteExistente) {
-        throw new Error(`Cliente Existente: ${data.nome}`);
+    criarCliente: async (_obj, { nome, email, cpf, dataNasc, rua, numero, bairro, cidade, estado, pais, cep }) => {        
+      await (await db('clientes')
+      .insert({ nome, email, cpf, dataNasc, rua, numero, bairro, cidade, estado, pais, cep })
+      .returning('*'))[0]
+    },
+    atualizarCliente: async (_obj, { id, nome, email, cpf, dataNasc, rua, bairro, cidade, estado, pais, cep, numero }) => {
+      await (await db('clientes')
+      .where({ id })
+      .update({ nome, email, cpf, dataNasc, rua, numero, bairro, cidade, estado, pais, cep })
+      .returning('*'))[0]
+    },
+    deletarCliente: async (_obj, { filtro }) => {
+      if (filtro.id) {
+        return await db('clientes').where({ id: filtro.id }).delete();
+      }
+      if (filtro.email) {
+        return await db('clientes').where({ email: filtro.email }).delete();
       }
 
-      const novoCliente = {
-        ...data, 
-        endereco: {rua, bairro, cidade, estado, pais, cep, numero},
-        id: geradorDeId(db.clientes),
-      };
-      db.clientes.push(novoCliente);
-
-      return novoCliente;
-    },
-    atualizarCliente(_obj, { id, data, rua, bairro, cidade, estado, pais, cep, numero }) {
-      const cliente = db.clientes.find((u) => u.id === id);
-      const indice = db.clientes.findIndex((u) => u.id === id);
-
-      const novoCliente = {
-        ...cliente,
-        ...data,
-        endereco: {rua, bairro, cidade, estado, pais, cep, numero},
-      };
-      db.clientes.splice(indice, 1, novoCliente);
-      return novoCliente;
-    },
-    deletarCliente(_obj, { filtro: { id, email } }) {
-      if (id) {
-        const clienteEncontrado = db.clientes.find((u) => u.id === id);
-        db.clientes = db.clientes.filter((u) => u.id !== id);
-
-        return !!clienteEncontrado;
-      } else {
-        const clienteEncontrado = db.clientes.find((u) => u.email === email);
-        db.clientes = db.clientes.filter((u) => u.email !== email);
-
-        return !!clienteEncontrado;
-      }
+      throw new Error('Favor passar um parâmetro');
     },
   },
 };
