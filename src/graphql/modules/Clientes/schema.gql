@@ -5,22 +5,22 @@ type Cliente {
   cpf: String
   dataNasc: String
   rua: String
+  numero: Int
   bairro: String
   cidade: String
   estado: String
   pais: String
   cep: String
-  numero: Int
 }
 
 type Endereco {
   rua: String
+  numero: Int
   bairro: String
   cidade: String
   estado: String
   pais: String
   cep: String
-  numero: Int
 }
 
 input ClienteInput {
