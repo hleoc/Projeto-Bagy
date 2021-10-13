@@ -5,20 +5,20 @@ enum TipoPedido {
 }
 
 input PedidoInput {
-  produto: String
+  id_produto: Int
   dataPedido: String
   parcelas: Int
-  comprador: String
-  status: TipoPedido
+  id_comprador: Int
+  status: String
 }
 
 type Pedido {
   id: Int
-  produto: String
+  id_produto: Int
   dataPedido: String
   parcelas: Int
-  comprador: String
-  status: TipoPedido
+  id_comprador: Int
+  status: String
 }
 
 input FiltroInput {
@@ -31,7 +31,20 @@ type Query {
 }
 
 type Mutation {
-  criarPedido(data: PedidoInput): Pedido!
-  atualizarPedido(id: Int!, data: PedidoInput): Pedido!
-  deletarPedido(filtro: FiltroInput!): Boolean
+  criarPedido(
+    id_produto: Int
+    dataPedido: String
+    parcelas: Int
+    id_comprador: Int
+    status: String
+  ): Pedido
+  atualizarPedido(
+    id: Int!
+    id_produto: Int
+    dataPedido: String
+    parcelas: Int
+    id_comprador: Int
+    status: String
+  ): Pedido
+  deletarPedido(filtro: FiltroInput): Boolean
 }

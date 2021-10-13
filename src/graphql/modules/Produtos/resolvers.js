@@ -1,60 +1,30 @@
 const db = require("../../../db");
 
-function geradorDeId(lista) {
-  let novoId;
-  let ultimo = lista[lista.length - 1];
-  if (!ultimo) {
-    novoId = 0;
-  } else {
-    novoId = ultimo.id;
-  }
-
-  return ++novoId;
-}
-
 module.exports = {
   Query: {
     produto(_obj, args) {
-      return db.produtos.find((db) => db.id === args.id);
+      return db("produtos").find((db) => db.id === args.id);
     },
-    produtos: () => db.produtos,
+    produtos: async () => await db("produtos"),
   },
   Mutation: {
-    criarProduto(_obj, { data }) {
-      const { nome } = data;
-
-      const produtoExistente = db.produtos.some((u) => u.nome === nome);
-
-      if (produtoExistente) {
-        throw new Error(`Produto Existente: ${data.nome}`);
+    criarProduto: async (_obj, { nome, urlImagem, descricao, peso, preco, quantidadeEstoque }) => {        
+      await (await db('produtos')
+      .insert({ nome, urlImagem, descricao, peso, preco, quantidadeEstoque })
+      .returning('*'))[0]
+    },
+    atualizarProduto: async (_obj, { id, nome, urlImagem, descricao, peso, preco, quantidadeEstoque }) => {
+      await (await db('produtos')
+      .where({ id })
+      .update({ nome, urlImagem, descricao, peso, preco, quantidadeEstoque })
+      .returning('*'))[0]
+    },
+    deletarProduto: async (_obj, { filtro }) => {
+      if (filtro.id) {
+        return await db('produtos').where({ id: filtro.id }).delete();
       }
 
-      const novoProduto = {
-        ...data,
-        id: geradorDeId(db.produtos),
-      };
-      db.produtos.push(novoProduto);
-
-      return novoProduto;
-    },
-    atualizarProduto(_obj, { id, data }) {
-      const produto = db.produtos.find((u) => u.id === id);
-      const indice = db.produtos.findIndex((u) => u.id === id);
-
-      const novoProduto = {
-        ...produto,
-        ...data,
-      };
-      db.produtos.splice(indice, 1, novoProduto);
-      return novoProduto;
-    },
-    deletarProduto(_obj, { filtro: { id } }) {
-      if (id) {
-        const produtoEncontrado = db.produtos.find((u) => u.id === id);
-        db.produtos = db.produtos.filter((u) => u.id !== id);
-
-        return !!produtoEncontrado;
-      }
+      throw new Error('Favor passar um parâmetro');
     },
   },
 };

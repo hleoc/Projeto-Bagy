@@ -6,10 +6,7 @@ const server = new ApolloServer({
   resolvers,
   formatError: (err) => {
     if (
-      err.message.startsWith("Cliente Existente:") ||
-      err.message.startsWith("Produto Existente:") ||
-      err.message.startsWith("Produto esgotado ou não existe no estoque") ||
-      err.message.startsWith("Cliente Inexistente:")
+      err.message.startsWith("Favor passar um parâmetro")
     ) {
       return new Error(err.message);
     }

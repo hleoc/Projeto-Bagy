@@ -4,7 +4,13 @@ type Cliente {
   email: String
   cpf: String
   dataNasc: String
-  endereco: Endereco
+  rua: String
+  bairro: String
+  cidade: String
+  estado: String
+  pais: String
+  cep: String
+  numero: Int
 }
 
 type Endereco {
@@ -36,25 +42,31 @@ type Query {
 
 type Mutation {
   criarCliente(
-    data: ClienteInput
+    nome: String
+    email: String
+    cpf: String
+    dataNasc: String
     rua: String
+    numero: Int
     bairro: String
     cidade: String
     estado: String
     pais: String
     cep: String
-    numero: Int
-  ): Cliente!
+  ): Cliente
   atualizarCliente(
     id: Int!
-    data: ClienteInput
+    nome: String
+    email: String
+    cpf: String
+    dataNasc: String
     rua: String
+    numero: Int
     bairro: String
     cidade: String
     estado: String
     pais: String
     cep: String
-    numero: Int
-  ): Cliente!
-  deletarCliente(filtro: FiltroInput!): Boolean
+  ): Cliente
+  deletarCliente(filtro: FiltroInput): Boolean
 }
